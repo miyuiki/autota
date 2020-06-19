@@ -2,10 +2,10 @@ import re
 from textrank4zh import TextRank4Keyword
 # from .rake import *
 # import pandas as pd
-# import numpy as np
+import numpy as np
 # from .util import PDFProcessor
 # from scipy.spatial.distance import cosine
-# from bert_serving.client import BertClient
+from bert_serving.client import BertClient
 # import math
 # import jieba
 # import requests
@@ -37,6 +37,24 @@ class TextRank:
                     sentence_dict[sentence] += 1
         important_sentece = {k:v for k, v in sentence_dict.items() if v != 0}
         return important_sentece
+
+class PretrainedBert:
+    def __init__(self, api_url, api_port):
+        self.model = BertClient(ip=api_url, port=api_port)
+    
+    def encode(self, text_list):
+        embeddings = np.zeros((len(text_list), 768))
+        if '' in text_list:
+            for index, text in enumerate(text_list):
+                if text == '':
+                    continue
+                else:
+                    embeddings[index] = self.model.encode([text])[0]
+            return embeddings
+        else:
+            embeddings = self.model.encode(text_list)
+            return embeddings
+
 
 # class Rake:
 #     def __init__(self, n_word, sentence_min_len):
