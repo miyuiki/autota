@@ -16,8 +16,8 @@
 from autota.grader import Grader
 
 grader = Grader(pdf_path='./test.pdf', 
-				bert_api_port=PRETRAINED_BERT_SERVICE_PORT, 
-				bert_api_url='PRETRAINED_BERT_SERVICE_HOST')
+		bert_api_port=PRETRAINED_BERT_SERVICE_PORT, 
+		bert_api_url='PRETRAINED_BERT_SERVICE_HOST')
 print(grader.grade_marker('marker text')) #得到單一marker分數
 print(grader.grade_memo('memo text')) #得到單一memo分數
 ```
@@ -27,8 +27,8 @@ from autota.recommender import Recommender
 
 #num_page指定要推薦多少頁
 recommender = Recommender(pdf_path='./test.pdf', num_page=2, 
-				api_port=PRETRAINED_BERT_SERVICE_PORT, 
-				api_url='PRETRAINED_BERT_SERVICE_HOST')
+			api_port=PRETRAINED_BERT_SERVICE_PORT, 
+			api_url='PRETRAINED_BERT_SERVICE_HOST')
 
 print(recommender.guiding_from(ta_ans='要推薦的概念'))
 #輸出為[(2, 0.0778473040773201), (1, 0.08752984923065377)]
