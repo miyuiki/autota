@@ -34,9 +34,24 @@ print(recommender.guiding_from(ta_ans='要推薦的概念'))
 #輸出為[(2, 0.0778473040773201), (1, 0.08752984923065377)]
 #tuple第一項元素即為頁數，第二項為該頁與ta_ans概念間的餘弦距離
 ```
+從教材自動生成問題
+```python
+from autota.generator import Generator
+
+#num_page指定要推薦多少頁
+generator = Generator(pdf_path='./test.pdf',, 
+			translate_api_port=TRANSLATE_SERVICE_PORT, 
+			translate_api_url='TRANSLATE_SERVICE_HOST',
+			gpt2_api_port=GPT2_SERVICE_PORT,
+			gpt2_api_url='GPT2_SERVICE_HOST')
+
+print(generator.get_qa())
+#輸出為[('What is the first thing that can be a variable name?', '變數名稱的第一個字不可為數字')]
+#list中每個tuple為一組QA pair
+```
+
 ## 開發中
 1. 簡答題自動評分
-2. 從教材自動生成問題
 
 
 
