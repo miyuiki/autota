@@ -8,7 +8,8 @@ import numpy as np
 from bert_serving.client import BertClient
 # import math
 # import jieba
-# import requests
+import requests
+import json
 # from difflib import SequenceMatcher 
 
 
@@ -55,6 +56,17 @@ class PretrainedBert:
             embeddings = self.model.encode(text_list)
             return embeddings
 
+class GPT2ForQuestionGeneration:
+    def __init__(self, api_url, api_port):
+        self.api_url = 'http://' + api_url + ':' + str(api_port) + '/generate'
+    
+    def generate(self, sentences):
+        data = json.loads(json.dumps({'sentences': sentences}))
+        # print(data)
+        resp = requests.get(self.api_url, json=data)
+        # print(resp.text)
+        questions = dict(resp.json())['quesiotns']
+        return questions
 
 # class Rake:
 #     def __init__(self, n_word, sentence_min_len):
@@ -203,16 +215,3 @@ class PretrainedBert:
 #         for pc in centrals:
 #             distance_array.append((index + 1, cosine(pc.numpy(), ans_feature.numpy())))
 #         return distance_array
-
-# class GPT2ForQuestionGeneration:
-#     def __init__(self):
-#         self.api_url = 'http://140.115.53.158:9527/generate'
-    
-#     def generate(self, sentence):
-#         params = {'sentence': sentence}
-#         resp = requests.get(self.api_url, params=params)
-#         data = dict(resp.json())['data']
-#         questions = []
-#         for d in data:
-#             questions.append(d["question"])
-#         return questions

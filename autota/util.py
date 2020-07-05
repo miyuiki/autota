@@ -78,8 +78,8 @@ class PDFProcessor:
         self.doc.save(store_path)
 
 class SentencePreprocessor:
-    def __init__(self):
-        self.api_url = 'http://140.115.53.158:9453/translate'
+    def __init__(self, api_url, api_port):
+        self.api_url = 'http://' + api_url + ':' + str(api_port) + '/translate'
 
     def is_sentence(self, text):
         tree = parse_tree(text)
